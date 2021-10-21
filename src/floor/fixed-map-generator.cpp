@@ -284,7 +284,11 @@ static int parse_qtw_Q(qtwg_type *qtwg_ptr, char **zz)
         return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 
     quest_type *q_ptr;
-    q_ptr = &(quest[atoi(zz[0])]);
+    int id = atoi(zz[0]);
+    if (id >= quest.size()) {
+        quest.resize(id + 1);
+    }
+    q_ptr = &(quest[id]);
     if (parse_qtw_QQ(q_ptr, zz, num))
         return PARSE_ERROR_NONE;
 
