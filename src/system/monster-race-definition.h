@@ -12,10 +12,8 @@
 #include "util/flag-group.h"
 #include <string>
 
-/*! モンスターが1ターンに攻撃する最大回数 (射撃を含む) / The maximum number of times a monster can attack in a turn (including SHOOT) */
-constexpr int MAX_NUM_BLOWS = 4;
-
 struct monster_blow {
+    int id{};
     RaceBlowMethodType method{};
     RaceBlowEffectType effect{};
     DICE_NUMBER d_dice{};
@@ -71,7 +69,7 @@ struct monster_race {
     EnumClassFlagGroup<MonsterVisualType> visual_flags; //!< 能力フラグ（シンボル） / Symbol Flags
     EnumClassFlagGroup<MonsterKindType> kind_flags; //!< 能力フラグ（種族・徳） / Attr Flags
     EnumClassFlagGroup<MonsterResistanceType> resistance_flags; //!< 耐性フラグ / Flags R (resistances info)
-    monster_blow blow[MAX_NUM_BLOWS]{}; //!< 打撃能力定義 / Up to four blows per round
+    std::vector<monster_blow> blow{}; //!< 打撃能力定義 / Up to four blows per round
     MONRACE_IDX reinforce_id[6]{}; //!< 指定護衛モンスター種族ID(6種まで)
     DICE_NUMBER reinforce_dd[6]{}; //!< 指定護衛数ダイス数
     DICE_SID reinforce_ds[6]{}; //!< 指定護衛数ダイス面
@@ -102,7 +100,7 @@ struct monster_race {
     ITEM_NUMBER r_drop_gold{}; //!< これまでに撃破時に落とした財宝の数 / Max number of gold dropped at once
     ITEM_NUMBER r_drop_item{}; //!< これまでに撃破時に落としたアイテムの数 / Max number of item dropped at once
     byte r_cast_spell{}; //!< 使った魔法/ブレスの種類数 /  Max unique number of spells seen
-    byte r_blows[MAX_NUM_BLOWS]{}; //!< 受けた打撃 /  Number of times each blow type was seen
+    std::map<int, byte> r_blows{}; //!< 受けた打撃 /  Number of times each blow type was seen
     uint32_t r_flags1{}; //!< Observed racial flags
     uint32_t r_flags2{}; //!< Observed racial flags
     uint32_t r_flags3{}; //!< Observed racial flags

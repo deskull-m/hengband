@@ -142,14 +142,14 @@ bool MonsterAttackPlayer::check_no_blow()
 bool MonsterAttackPlayer::process_monster_blows()
 {
     auto *r_ptr = &r_info[this->m_ptr->r_idx];
-    for (auto ap_cnt = 0; ap_cnt < MAX_NUM_BLOWS; ap_cnt++) {
+    for (auto &r : r_ptr->blow) {
         this->obvious = false;
         this->damage = 0;
         this->act = nullptr;
-        this->effect = r_ptr->blow[ap_cnt].effect;
-        this->method = r_ptr->blow[ap_cnt].method;
-        this->d_dice = r_ptr->blow[ap_cnt].d_dice;
-        this->d_side = r_ptr->blow[ap_cnt].d_side;
+        this->effect = r.effect;
+        this->method = r.method;
+        this->d_dice = r.d_dice;
+        this->d_side = r.d_side;
 
         if (!this->check_monster_continuous_attack()) {
             break;
@@ -181,7 +181,7 @@ bool MonsterAttackPlayer::process_monster_blows()
             // 命中した。命中処理と思い出処理を行う。
             // 打撃そのものは対邪悪結界で撃退した可能性がある。
             const bool protect = !this->process_monster_attack_hit();
-            this->increase_blow_type_seen(ap_cnt);
+            this->increase_blow_type_seen(r.id);
 
             // 撃退成功時はそのまま次の打撃へ移行。
             if (protect)
@@ -197,7 +197,7 @@ bool MonsterAttackPlayer::process_monster_blows()
         } else {
             // 命中しなかった。回避時の処理、思い出処理を行う。
             this->process_monster_attack_evasion();
-            this->increase_blow_type_seen(ap_cnt);
+            this->increase_blow_type_seen(r.id);
         }
     }
 

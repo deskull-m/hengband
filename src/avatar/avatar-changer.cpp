@@ -170,12 +170,12 @@ void AvatarChanger::change_virtue_wild_thief()
     auto *r_ptr = &r_info[m_ptr->r_idx];
     auto innocent = true;
     auto thief = false;
-    for (auto i = 0; i < MAX_NUM_BLOWS; i++) {
-        if (r_ptr->blow[i].d_dice != 0) {
+    for (auto &b : r_ptr->blow) {
+        if (b.d_dice != 0) {
             innocent = false;
         }
 
-        if ((r_ptr->blow[i].effect == RaceBlowEffectType::EAT_ITEM) || (r_ptr->blow[i].effect == RaceBlowEffectType::EAT_GOLD)) {
+        if (b.effect == RaceBlowEffectType::EAT_ITEM || b.effect == RaceBlowEffectType::EAT_GOLD) {
             thief = true;
         }
     }
