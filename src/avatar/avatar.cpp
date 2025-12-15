@@ -75,7 +75,7 @@ int virtue_number(PlayerType *player_ptr, Virtue virtue)
  * @brief プレイヤーの職業や種族に依存しないランダムな徳を取得する / Aux function
  * @param which 確認したい徳のID
  */
-static void get_random_virtue(PlayerType *player_ptr, int which)
+static void get_random_virtue(PlayerType *player_ptr)
 {
     ProbabilityTable<Virtue> pt;
     pt.entry_item(Virtue::SACRIFICE, 3);
@@ -377,7 +377,7 @@ void initialize_virtues(PlayerType *player_ptr)
 
     /* Fill up to 8 virtues with random ones */
     while (player_ptr->virtues.size() < 8) {
-        get_random_virtue(player_ptr, 0);
+        get_random_virtue(player_ptr);
     }
 }
 
@@ -464,7 +464,7 @@ void dump_virtues(PlayerType *player_ptr, FILE *out_file)
         return;
     }
 
-    for (const auto& [virtue_type, value] : player_ptr->virtues) {
+    for (const auto &[virtue_type, value] : player_ptr->virtues) {
         const auto &vir_name = virtue_names.at(virtue_type);
         const auto vir_val_str = format(" (%d)", value);
         const auto vir_val = show_actual_value ? vir_val_str.data() : "";

@@ -190,11 +190,11 @@ void save_quick_start(void)
     }
 
     wr_s16b(previous_char.chaos_patron);
-    
+
     // Write previous character virtues in legacy format
     Virtue vir_types[8];
     int idx = 0;
-    for (const auto& [vir_type, value] : previous_char.virtues) {
+    for (const auto &[vir_type, value] : previous_char.virtues) {
         if (idx < 8) {
             vir_types[idx++] = vir_type;
         }
@@ -202,7 +202,7 @@ void save_quick_start(void)
     for (; idx < 8; idx++) {
         vir_types[idx] = Virtue::NONE;
     }
-    
+
     for (int i = 0; i < 8; i++) {
         wr_s16b(enum2i(vir_types[i]));
     }

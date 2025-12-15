@@ -6,6 +6,7 @@
 #include "player/player-sex.h"
 #include "system/angband.h"
 #include "system/system-variables.h"
+#include <map>
 
 /*
  * A structure to hold "rolled" information

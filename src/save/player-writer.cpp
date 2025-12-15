@@ -235,7 +235,7 @@ void wr_player(PlayerType *player_ptr)
     Virtue vir_types[8];
     int16_t vir_values[8];
     int idx = 0;
-    for (const auto& [vir_type, value] : player_ptr->virtues) {
+    for (const auto &[vir_type, value] : player_ptr->virtues) {
         if (idx < 8) {
             vir_types[idx] = vir_type;
             vir_values[idx] = value;

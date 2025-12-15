@@ -15,8 +15,8 @@
 #include "system/player-type-definition.h"
 #include "util/bit-flags-calculator.h"
 #include <array>
-#include <vector>
 #include <fmt/format.h>
+#include <vector>
 
 PlayerAlignment::PlayerAlignment(PlayerType *player_ptr)
 {
@@ -103,7 +103,7 @@ void PlayerAlignment::update_alignment()
     }
 
     std::vector<Virtue> neutral_virtues;
-    for (const auto& [virtue_type, value] : this->player_ptr->virtues) {
+    for (const auto &[virtue_type, value] : this->player_ptr->virtues) {
         switch (virtue_type) {
         case Virtue::JUSTICE:
             this->bias_good_alignment(value * 2);
@@ -123,10 +123,12 @@ void PlayerAlignment::update_alignment()
         }
     }
 
-    for (const auto& vir_type : neutral_virtues) {
+    for (const auto &vir_type : neutral_virtues) {
         auto it = this->player_ptr->virtues.find(vir_type);
-        if (it == this->player_ptr->virtues.end()) continue;
-        
+        if (it == this->player_ptr->virtues.end()) {
+            continue;
+        }
+
         if (this->player_ptr->alignment > 0) {
             this->bias_evil_alignment(it->second / 2);
             if (this->player_ptr->alignment < 0) {

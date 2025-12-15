@@ -36,7 +36,7 @@ void display_virtue(PlayerType *player_ptr, self_info_type *self_ptr)
     const std::string alg = PlayerAlignment(player_ptr).get_alignment_description(true);
     self_ptr->info_list.push_back(format(_("現在の属性 : %s", "Your alignment : %s"), alg.data()));
 
-    for (const auto& [virtue_type, tester] : player_ptr->virtues) {
+    for (const auto &[virtue_type, tester] : player_ptr->virtues) {
         const auto vir_name = virtue_names.at(virtue_type).data();
         std::string vir_desc;
         if (tester < -100) {
