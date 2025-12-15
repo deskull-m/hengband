@@ -114,9 +114,7 @@ void save_prev_data(PlayerType *player_ptr, birther *birther_ptr)
     }
 
     birther_ptr->chaos_patron = player_ptr->chaos_patron;
-    for (int i = 0; i < 8; i++) {
-        birther_ptr->vir_types[i] = player_ptr->vir_types[i];
-    }
+    birther_ptr->virtues = player_ptr->virtues;
 
     for (int i = 0; i < 4; i++) {
         strcpy(birther_ptr->history[i], player_ptr->history[i]);
@@ -170,9 +168,7 @@ void load_prev_data(PlayerType *player_ptr, bool swap)
     player_ptr->mhp = player_ptr->player_hp[0];
     player_ptr->chp = player_ptr->player_hp[0];
     player_ptr->chaos_patron = previous_char.chaos_patron;
-    for (int i = 0; i < 8; i++) {
-        player_ptr->vir_types[i] = previous_char.vir_types[i];
-    }
+    player_ptr->virtues = previous_char.virtues;
 
     PlayerClass(player_ptr).init_specific_data();
 
