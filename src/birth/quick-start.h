@@ -32,7 +32,7 @@ struct birther {
 
     int16_t chaos_patron{}; /*! カオスパトロンのID */
 
-    Virtue vir_types[8]{};
+    std::map<Virtue, int16_t> virtues; /*!< 徳の値 / Virtue values */
 
     char history[4][60]{};
 
